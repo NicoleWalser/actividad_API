@@ -1,5 +1,5 @@
 window.onload = ()=>{
-
+    
 async function obtenerProducto() {
     let url="https://api.mercadolibre.com/sites/MLU/search?category=MLU1144"; 
     let respuesta = await fetch(url);
@@ -16,14 +16,21 @@ function mostrarProducto(productos){
     tr.innerHTML+=`  
         <td>${producto.title}</td>
         <td>${producto.permalink}</td>
-        <td>${producto.thumbnail}</td>
+        <td><img scr"${producto.thumbnail}"></td>
         <td>${producto.price}</td>
         <td><button onclick="guardarProducto('${producto.title}', '${producto.permalink}', '${producto.thumbnail}', '${producto.price}')">Guardar</button></td>
         `;
         tbodyElement.appendChild(tr);
     }  )
 }
-}
-function guardarProducto(productos){
+
+
+    function guardarProducto(title, permalink, thumbnail, price) {
+        
+
+    }
+
 
 }
+
+obtenerProducto().then(productos => mostrarProducto(productos)); // Llamar a la función para obtener y mostrar productos
