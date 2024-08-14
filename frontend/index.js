@@ -1,4 +1,9 @@
 window.onload = ()=>{
+    let productos = await obtenerProducto();
+    await mostrarProducto(productos);
+    console.log(productos);
+}
+
     
 async function obtenerProducto() {
     let url="https://api.mercadolibre.com/sites/MLU/search?category=MLU1144"; 
@@ -15,22 +20,43 @@ function mostrarProducto(productos){
     let tr =document.mostrarProductos("tr")
     tr.innerHTML+=`  
         <td>${producto.title}</td>
-        <td>${producto.permalink}</td>
-        <td><img scr"${producto.thumbnail}"></td>
+        <td><a href="${producto.permalink}"></td>
+        <td><img scr="${producto.thumbnail}"></td>
         <td>${producto.price}</td>
-        <td><button onclick="guardarProducto('${producto.title}', '${producto.permalink}', '${producto.thumbnail}', '${producto.price}')">Guardar</button></td>
         `;
-        tbodyElement.appendChild(tr);
-    }  )
-}
+        let boton = document.createElement("button")
+        boton.onclick = ()=>{guardarProducto(producto)};
+        let td = document.createElement("td");
+        td.appendChild(boton);
+        tr.appendChild(td);
+        tBodyProductos.appendChild(tr);
+        boton.textContent = "GuardarProducto";
+    });
+
+    }  
 
 
-    function guardarProducto(title, permalink, thumbnail, price) {
-        
+    async function guardarProducto(producto)({
+    console.log(producto);
+    let url = 
+    let formData = new Forapata()
+    formData.append("id", producto.id);
+    formData.append("title", producto.title);
+    formData.append("link", producto.permalink);
+    formData.append("img", producto.thumbnail);
+    formData.append("price", producto.price);
 
+    let config ={
+        method: 'POST'
+        body: formData   
     }
+       
+        let respuesta= await fetch(url, config);
+        let rec = await respuesta.json();
+        console.log(rec);
 
 
 }
 
-obtenerProducto().then(productos => mostrarProducto(productos)); // Llamar a la función para obtener y mostrar productos
+
+
