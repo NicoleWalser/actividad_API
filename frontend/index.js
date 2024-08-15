@@ -39,7 +39,7 @@ async function obtenerProducto() {
 async function guardarProducto(id) {
     const producto= productos.find((elemento)=>elemento.id=id)
     console.log(producto);
-    let url = "http://localhost/actividad_API/back/controlador/conrolador.php?funcion=guardarproducto"
+    let url = "http://localhost/actividad_API/back/controlador/conrolador.php?funcion=guardarProducto"
     let formData = new FormData()
     formData.append("id", producto.id);
     formData.append("title", producto.title);
@@ -53,7 +53,7 @@ async function guardarProducto(id) {
     }
 
     let respuesta = await fetch(url, config);
-    let rec = await respuesta.text();
+    let rec = await respuesta.json();
     console.log(rec);
 
 }
