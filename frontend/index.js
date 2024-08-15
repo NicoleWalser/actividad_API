@@ -1,62 +1,63 @@
-window.onload = ()=>{
-    let productos = await obtenerProducto();
-    await mostrarProducto(productos);
-    console.log(productos);
-}
+window.onload = async () => {
 
-    
+    productos = await obtenerProducto();
+    mostrarProducto(productos);
+    console.log(productos);
+
+
+    function mostrarProducto(productos) {
+        const tbodyElement = document.getElementById("mostrarProducto")
+
+        tbodyElement.innerHTML = ""
+
+        productos.forEach(producto => {
+        tbodyElement.innerHTML += `  
+        <tr>
+            <td>${producto.title}</td>
+            <td><a href="${producto.permalink}">ver producto</a></td>
+            <td><img src="${producto.thumbnail}"></td>
+            <td>${producto.price}</td>
+            <td><button onclick=guardarProducto('${producto.id}')> Guardar </button></td>
+            <tr>
+            `; 
+        });
+
+    }
+
+}
+const tbodyElement = document.getElementById("mostrarProducto")
+let productos= [];
 async function obtenerProducto() {
-    let url="https://api.mercadolibre.com/sites/MLU/search?category=MLU1144"; 
+    let url = "https://api.mercadolibre.com/sites/MLU/search?category=MLU1144";
     let respuesta = await fetch(url);
     let datos = await respuesta.json();
-    console.log(datos);
-    let productos= datos.respuesta;
-    return productos;
+
+    return datos.results;
 }
-function mostrarProducto(productos){
-    let tbodyElement = document.querySelector("#mostrarProducto")
-    tbodyElement.innerHTML=""   
-    productos.forEach(productos => {
-    let tr =document.mostrarProductos("tr")
-    tr.innerHTML+=`  
-        <td>${producto.title}</td>
-        <td><a href="${producto.permalink}"></td>
-        <td><img scr="${producto.thumbnail}"></td>
-        <td>${producto.price}</td>
-        `;
-        let boton = document.createElement("button")
-        boton.onclick = ()=>{guardarProducto(producto)};
-        let td = document.createElement("td");
-        td.appendChild(boton);
-        tr.appendChild(td);
-        tBodyProductos.appendChild(tr);
-        boton.textContent = "GuardarProducto";
-    });
-
-    }  
 
 
-    async function guardarProducto(producto)({
+async function guardarProducto(id) {
+    const producto= productos.find((elemento)=>elemento.id=id)
     console.log(producto);
-    let url = 
-    let formData = new Forapata()
+    let url = "http://localhost/actividad_API/back/controlador/conrolador.php?funcion=guardarproducto"
+    let formData = new FormData()
     formData.append("id", producto.id);
     formData.append("title", producto.title);
-    formData.append("link", producto.permalink);
-    formData.append("img", producto.thumbnail);
+    formData.append("permalink", producto.permalink);
+    formData.append("thumbnail", producto.thumbnail);
     formData.append("price", producto.price);
 
-    let config ={
-        method: 'POST'
-        body: formData   
+    let config = {
+        method: 'POST',
+        body: formData
     }
-       
-        let respuesta= await fetch(url, config);
-        let rec = await respuesta.json();
-        console.log(rec);
 
+    let respuesta = await fetch(url, config);
+    let rec = await respuesta.text();
+    console.log(rec);
 
 }
+
 
 
 
