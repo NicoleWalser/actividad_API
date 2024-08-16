@@ -17,19 +17,21 @@ class Producto{
 
             if ($this->productoExiste($id)) { 
 
-                return $this->actualizarProducto($id, $title, $permalink, $thumbnail, $price); 
+                $respuesta=$this->actualizarProducto($id, $title, $permalink, $thumbnail, $price); 
 
             } else {
                 $sql = "INSERT INTO producto VALUES ('$id', '$title', '$permalink', '$thumbnail', $price);";
                 $respuesta = $connection->query($sql);
-                return $respuesta;
+               
             }
+            return $respuesta;
 }
+
     function actualizarProducto($id, $title, $permalink, $thumbnail, $price){
 
         $connection = connection();
         $sql = "UPDATE producto SET title = '$title', permalink = '$permalink', thumbnail = '$thumbnail', price = '$price' WHERE id = '$id';";
-        $respuesta = $connection->query($sql);
+        $respuesta = $connection->query($sql); //sentencia sql
         return $respuesta;
 }
 }
