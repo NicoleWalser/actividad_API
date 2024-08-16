@@ -11,7 +11,7 @@ window.onload = async () => {
         tbodyElement.innerHTML = ""
 
         productos.forEach(producto => {
-        tbodyElement.innerHTML += `  
+            tbodyElement.innerHTML += `  
         <tr>
             <td>${producto.title}</td>
             <td><a href="${producto.permalink}">ver producto</a></td>
@@ -19,27 +19,27 @@ window.onload = async () => {
             <td>${producto.price}</td>
             <td><button onclick=guardarProducto('${producto.id}')> Guardar </button></td>
             <tr>
-            `; 
+            `;
         });
 
     }
 
 }
 const tbodyElement = document.getElementById("mostrarProducto")
-let productos= [];
+let productos = [];
 async function obtenerProducto() {
     let url = "https://api.mercadolibre.com/sites/MLU/search?category=MLU1144";
     let respuesta = await fetch(url);
     let datos = await respuesta.json();
-
-    return datos.results;
+    let producto = datos.results;
+    return producto;
 }
 
 
-async function guardarProducto(id) {
-    const producto= productos.find((elemento)=>elemento.id=id)
+async function guardarProducto(producto) {
+    // const producto = productos.find((elemento) => elemento.id = id)
     console.log(producto);
-    let url = "http://localhost/actividad_API/back/controlador/conrolador.php?funcion=guardarProducto"
+    let url = "http://localhost/actividad_API/back/controlador/controlador.php?funcion=guardarproducto"
     let formData = new FormData()
     formData.append("id", producto.id);
     formData.append("title", producto.title);
@@ -57,7 +57,4 @@ async function guardarProducto(id) {
     console.log(rec);
 
 }
-
-
-
 
