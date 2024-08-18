@@ -50,7 +50,7 @@ async function guardarProducto(producto) {
     formData.append("price", producto.price);
     let config = {
         method: 'POST',
-        body: formData
+        body: formData,
     }
 
     let respuesta = await fetch(url, config);
