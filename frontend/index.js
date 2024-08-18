@@ -3,10 +3,6 @@ window.onload = async () => {
     productos = await obtenerProducto();
     mostrarProducto(productos);
     console.log(productos);
-
-
-
-
 }
 
 
@@ -17,9 +13,6 @@ async function obtenerProducto() {
     let producto = datos.results;
     return producto;
 }
-
-
-
 
 function mostrarProducto(productos) {
     const tbodyElement = document.getElementById("mostrarProducto")
@@ -44,10 +37,8 @@ function mostrarProducto(productos) {
 const tbodyElement = document.getElementById("mostrarProducto")
 let productos = [];
 
-
-
 async function guardarProducto(producto) {
-    // const producto = productos.find((elemento) => elemento.id = id)
+    const producto = productos.find((elemento) => elemento.id = id)
     console.log(producto);
     let url = "https://localhost/actividad_API/back/controlador/controlador.php?funcion=guardarproducto";
     console.log(url);
@@ -66,6 +57,6 @@ async function guardarProducto(producto) {
     let rec = await respuesta.json();
     console.log(rec);
 
-    return rec;
+    // return rec;
 }
 
