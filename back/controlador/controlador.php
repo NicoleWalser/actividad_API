@@ -6,7 +6,7 @@ switch($funcion){
     case "guardarproducto":
     guardarProducto();
     break;
-case "actualizarProducto":
+    case "actualizarProducto":
     actualizarProducto();
     break;
 }

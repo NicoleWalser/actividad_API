@@ -73,7 +73,7 @@ window.onload = async () => {
     // como argumento para mostrarlos en la tabla.
 
     console.log(productos);
-    // Muestra en la consola los productos obtenidos, para propósitos de depuración.
+    // Muestra en la consola los productos obtenidos.
 
     function mostrarProducto(productos) {
         // Función que se encarga de mostrar los productos en la tabla HTML.
@@ -90,19 +90,19 @@ window.onload = async () => {
             tbodyElement.innerHTML += `  
             <tr>
                 <td>${producto.title}</td>
-                <!-- Muestra el título del producto en una celda -->
-                <td><a href="${producto.permalink}">ver producto</a></td>
-                <!-- Muestra un enlace que dirige al producto en una celda -->
+                
+                <td><a href="${producto.permalink}">ver producto</a></td>  // Muestra el título, el link, la imagen y el precio del producto en una celda 
+                
                 <td><img src="${producto.thumbnail}"></td>
-                <!-- Muestra la imagen en miniatura del producto en una celda -->
+                
                 <td>${producto.price}</td>
-                <!-- Muestra el precio del producto en una celda -->
+                
                 <td><button onclick=guardarProducto('${producto.id}')> Guardar </button></td>
-                <!-- Muestra un botón que, al ser clickeado, llama a la función guardarProducto() pasando el id del producto -->
+                // Muestra un botón que, al ser clickeado, llama a la función guardarProducto() pasando el id del producto
             <tr>
             `;
         });
-        // Agrega dinámicamente filas a la tabla con los datos de cada producto.
+        
     }
 }
 
@@ -159,8 +159,8 @@ async function guardarProducto(id) {
     let respuesta = await fetch(url, config);
     // Envía la solicitud al backend con los datos del producto y espera la respuesta.
 
-    let rec = await respuesta.text();
-    // Convierte la respuesta en texto.
+    let rec = await respuesta.json();
+    // Convierte la respuesta en json.
 
     console.log(rec);
     // Muestra la respuesta del servidor en la consola, generalmente para verificar si se guardó correctamente.
